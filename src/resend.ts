@@ -3,9 +3,17 @@ import { Resend } from 'resend';
 
 export class ResendRepo {
     private apiKey: string;
+    private from: string;
+    private to: string;
+    private displayName: string | undefined;
 
-    constructor(apiKey: string) {
+    constructor(apiKey: string, from: string, to: string, displayName?: string) {
         this.apiKey = apiKey;
+        this.from = displayName ? `${displayName} <${from}>` : from;
+        this.to = to;
+        this.displayName = displayName;
+
+
     }
 
     async sendContactEmail(name: string, email: string, content: string) {
@@ -13,12 +21,11 @@ export class ResendRepo {
         const emailBody = this.createTemplate(name, email, content);
 
         const data = await resend.emails.send({
-            from: 'Agnishcc Website <onboarding@resend.dev>',
-            to: 'agnishc.dev@gmail.com',
+            from: this.from,
+            to: this.to,
             subject: `New Contact, ${name}`,
             html: emailBody,
         });
-
     }
 
     private createTemplate(name: string, email: string, content: string) {

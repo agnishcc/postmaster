@@ -10,5 +10,6 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
     "wrangler": "^3.25.0"
-  }
+  },
+  "license": "AGPL-3.0"
 }
